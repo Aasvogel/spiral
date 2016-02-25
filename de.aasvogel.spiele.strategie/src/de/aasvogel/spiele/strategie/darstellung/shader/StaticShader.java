@@ -8,11 +8,13 @@ import de.aasvogel.spiele.strategie.darstellung.engine.Attributes;
 public class StaticShader extends ShaderProgram
 {
 	private static final String FOLDER = "src/de/aasvogel/spiele/strategie/darstellung/shader/gls/";
+	// Nachdehm die einzelnen Grenzen zwischen den "Höhen-Farben" scharf sein
+	// sollen und nur von der Höhe abhängig... Müssen wir die Höhenfarbe
+	// tatsächlich im Fragment-Shader ermitteln..
+	// private static final String VERTEX_FILE = FOLDER + "height_sea.vert";
+	// private static final String FRAGMENT_FILE = FOLDER + "border.frag";
 	private static final String VERTEX_FILE = FOLDER + "height.vert";
 	private static final String FRAGMENT_FILE = FOLDER + "height_sea.frag";
-	// private static final String VERTEX_FILE = FOLDER + "vertexShader.vert";
-	// private static final String FRAGMENT_FILE = FOLDER +
-	// "fragmentShader.frag";
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
 	private int location_viewMatrix;

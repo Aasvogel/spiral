@@ -83,10 +83,10 @@ public class Testdarsteller
 				verweise);
 		seg2.fillRandomly(seg1);
 		segmente.add(seg2);
-		SegmentHex seg3 = new SegmentHex(new SegmentPositionHex(0, 1, 0),
-				verweise);
-		seg3.fillRandomly(seg1, seg2);
-		segmente.add(seg3);
+		// SegmentHex seg3 = new SegmentHex(new SegmentPositionHex(0, 1, 0),
+		// verweise);
+		// seg3.fillRandomly(seg1, seg2);
+		// segmente.add(seg3);
 		return segmente;
 	}
 

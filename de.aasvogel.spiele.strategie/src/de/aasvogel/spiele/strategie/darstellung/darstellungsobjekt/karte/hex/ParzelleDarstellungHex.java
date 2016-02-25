@@ -18,7 +18,7 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 
 	private Loader loader = Loader.getLoader();
 
-	private final static String textureName = "triangle1";
+	private final static String TEXTURENAME = "triangle1";
 
 	public ParzelleDarstellungHex(Parzelle parzelle)
 	{
@@ -40,7 +40,7 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 		int[] indices = convertIndices();
 
 		RawModel model = loader.loadToVAO(vertices, textureCoords, indices);
-		ModelTexture texture = new ModelTexture(loader.loadTexture(textureName));
+		ModelTexture texture = new ModelTexture(loader.loadTexture(TEXTURENAME));
 		TexturedModel staticModel = new TexturedModel(model, texture);
 
 		Entity entity = new Entity(staticModel, new Vector3f(0, 0, 0), 0, 0, 0,
@@ -66,6 +66,10 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 
 	private float[] convertTextureCoords()
 	{
+		if (parzelle.getEcken().size() != 3)
+			throw new AssertionError("Parzellengröße sollte 3 sein. Ist: "
+					+ parzelle.getEcken().size());
+
 		float[] textCoords = new float[parzelle.getEcken().size() * 2];
 
 		textCoords[0] = 0;
@@ -88,5 +92,4 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 
 		return indices;
 	}
-
 }
