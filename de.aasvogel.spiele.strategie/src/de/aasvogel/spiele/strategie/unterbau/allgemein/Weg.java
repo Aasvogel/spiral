@@ -27,7 +27,8 @@ public class Weg
 
 	public float get_laenge()
 	{
-		return m_kreuzungA.berechneEntfernungZuKreuzung(m_kreuzungB);
+		return Geometrie.getGeometrie().berechneEntfernungZwischenKreuzungen(
+				m_kreuzungA, m_kreuzungB);
 	}
 
 	public boolean kreuzenSichDieWege(Weg weg)
@@ -37,7 +38,7 @@ public class Weg
 				|| weg.m_kreuzungB == this.m_kreuzungA
 				|| weg.m_kreuzungA == this.m_kreuzungB)
 			return false;
-		return this.m_kreuzungA.kreuzenSich2Wege(this.m_kreuzungA,
+		return Geometrie.getGeometrie().kreuzenSich2Wege(this.m_kreuzungA,
 				this.m_kreuzungB, weg.m_kreuzungA, weg.m_kreuzungB);
 	}
 

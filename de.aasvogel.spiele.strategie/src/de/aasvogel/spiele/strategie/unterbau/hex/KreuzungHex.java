@@ -5,6 +5,7 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Geometrie;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Kreuzung;
 import de.aasvogel.spiele.strategie.util.DebugSchalter;
 import de.aasvogel.spiele.strategie.util.GecoRandom;
@@ -33,30 +34,6 @@ public class KreuzungHex extends PositionHex implements Kreuzung
 	}
 
 	@Override
-	public float berechneEntfernungZuKreuzung(Kreuzung kreuzung)
-	{
-		assert (kreuzung instanceof KreuzungHex);
-
-		return berechneEntfernungZuKreuzung((KreuzungHex) kreuzung);
-	}
-
-	private float berechneEntfernungZuKreuzung(KreuzungHex kreuzung)
-	{
-		// 1. Differenz (normaliesiert sich automatisch):
-		KreuzungHex differenz = new KreuzungHex(nord - kreuzung.nord, //
-				suedWest - kreuzung.suedWest, suedOst - kreuzung.suedOst);
-
-		// 2. Entfernung...
-		// Der Innenwinkel zwischen Haupt- und Nebenrichtung
-		// ist immer 60°. cos(60°) = 1/2
-		return (float) Math.sqrt( //
-				differenz.getHauptEntfernung() * differenz.getHauptEntfernung()
-						+ differenz.getAbweichung() * differenz.getAbweichung()
-						- differenz.getAbweichung()
-						* differenz.getHauptEntfernung());
-	}
-
-	@Override
 	public boolean istEntfernungZuKreuzungKleiner(Kreuzung kreuzung,
 			float entfernung)
 	{
@@ -75,19 +52,8 @@ public class KreuzungHex extends PositionHex implements Kreuzung
 		// return false;
 		// if (Math.abs(this.m_laenge - kreuzung.m_laenge) > entfernung)
 		// return false;
-		return berechneEntfernungZuKreuzung(kreuzung) < max;
-	}
-
-	@Override
-	public boolean kreuzenSich2Wege(Kreuzung anfangA, Kreuzung endeA,
-			Kreuzung anfangB, Kreuzung endeB)
-	{
-		assert (anfangA instanceof KreuzungHex);
-		assert (endeA instanceof KreuzungHex);
-		assert (anfangB instanceof KreuzungHex);
-		assert (endeB instanceof KreuzungHex);
-		return kreuzenSich2Wege((KreuzungHex) anfangA, (KreuzungHex) endeA,
-				(KreuzungHex) anfangB, (KreuzungHex) endeB);
+		return Geometrie.getGeometrie().berechneEntfernungZwischenKreuzungen(
+				this, kreuzung) < max;
 	}
 
 	public boolean kreuzenSich2Wege(KreuzungHex anfangA, KreuzungHex endeA,
@@ -167,7 +133,7 @@ public class KreuzungHex extends PositionHex implements Kreuzung
 				zentrum.suedOst + suedost);
 	}
 
-	private float getHauptEntfernung()
+	float getHauptEntfernung()
 	{
 		fillHauptEntfernungUndAbweichung();
 		return hauptEntfernung;
@@ -190,7 +156,7 @@ public class KreuzungHex extends PositionHex implements Kreuzung
 		}
 	}
 
-	private float getAbweichung()
+	float getAbweichung()
 	{
 		fillHauptEntfernungUndAbweichung();
 		return abweichung;
