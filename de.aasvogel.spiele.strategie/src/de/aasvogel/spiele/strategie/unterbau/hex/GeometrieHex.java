@@ -7,8 +7,7 @@ import de.aasvogel.spiele.strategie.unterbau.allgemein.Position;
 
 public class GeometrieHex extends Geometrie
 {
-	private float berechneEntfernungZwischenKreuzungen(PositionHex posA,
-			PositionHex posB)
+	private float berechneEntfernungHex(PositionHex posA, PositionHex posB)
 	{
 		// 1. Differenz (normaliesiert sich automatisch):
 		PositionHex differenz = new PositionHex(posA.nord - posB.nord, //
@@ -37,7 +36,7 @@ public class GeometrieHex extends Geometrie
 				(PositionHex) anfangB, (PositionHex) endeB);
 	}
 
-	public boolean kreuzenSich2HexWege(PositionHex anfangA, PositionHex endeA,
+	private boolean kreuzenSich2HexWege(PositionHex anfangA, PositionHex endeA,
 			PositionHex anfangB, PositionHex endeB)
 	{
 		return Line2D.linesIntersect(anfangA.getBreitengrad(),
@@ -53,7 +52,7 @@ public class GeometrieHex extends Geometrie
 		assert (kreuzungA instanceof PositionHex);
 		assert (kreuzungB instanceof PositionHex);
 
-		return berechneEntfernungZwischenKreuzungen((PositionHex) kreuzungA,
+		return berechneEntfernungHex((PositionHex) kreuzungA,
 				(PositionHex) kreuzungB);
 	}
 
@@ -85,14 +84,24 @@ public class GeometrieHex extends Geometrie
 		+ (c.getBreitengrad() - b.getBreitengrad())
 				* (x.getLaengengrad() - c.getLaengengrad())) //
 				/ teiler;
+
+		if (alpha < 0)
+			return false;
+
 		float beta = ((c.getLaengengrad() - a.getLaengengrad())
 				* (x.getBreitengrad() - c.getBreitengrad()) //
 		+ (a.getBreitengrad() - c.getBreitengrad())
 				* (x.getLaengengrad() - c.getLaengengrad())) //
 				/ teiler;
+
+		if (beta < 0)
+			return false;
+
 		float gamma = 1.0f - alpha - beta;
 
-		return alpha >= 0 && beta >= 0 && gamma >= 0;
-		// return false;
+		if (gamma < 0)
+			return false;
+
+		return true;
 	}
 }
