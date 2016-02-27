@@ -22,13 +22,14 @@ public class Weg
 
 	public boolean istLaengeKleinerAls(float laenge)
 	{
-		return m_kreuzungA.istEntfernungZuKreuzungKleiner(m_kreuzungB, laenge);
+		return m_kreuzungA.istEntfernungKleiner(m_kreuzungB.getPosition(),
+				laenge);
 	}
 
 	public float get_laenge()
 	{
-		return Geometrie.getGeometrie().berechneEntfernungZwischenKreuzungen(
-				m_kreuzungA, m_kreuzungB);
+		return Geometrie.berechneEntfernung(m_kreuzungA.getPosition(),
+				m_kreuzungB.getPosition());
 	}
 
 	public boolean kreuzenSichDieWege(Weg weg)
@@ -38,8 +39,9 @@ public class Weg
 				|| weg.m_kreuzungB == this.m_kreuzungA
 				|| weg.m_kreuzungA == this.m_kreuzungB)
 			return false;
-		return Geometrie.getGeometrie().kreuzenSich2Wege(this.m_kreuzungA,
-				this.m_kreuzungB, weg.m_kreuzungA, weg.m_kreuzungB);
+		return Geometrie.kreuzenSich2Wege( //
+				this.m_kreuzungA.getPosition(), this.m_kreuzungB.getPosition(), //
+				weg.m_kreuzungA.getPosition(), weg.m_kreuzungB.getPosition());
 	}
 
 	@Override

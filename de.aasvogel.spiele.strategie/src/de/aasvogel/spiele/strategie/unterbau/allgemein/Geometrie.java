@@ -4,25 +4,36 @@ public abstract class Geometrie
 {
 	private static Geometrie geo;
 
-	public static void setGeometrie(Geometrie geometrie)
-	{
-		if (geo != null)
-			throw new IllegalStateException("Geometry is already set.");
-		geo = geometrie;
-	}
-
-	public static Geometrie getGeometrie()
+	private static Geometrie getGeometrie(Position pos)
 	{
 		if (geo == null)
-			throw new IllegalStateException("Geometry not jet set.");
+			geo = GeometrieFactory.getGeometrie(pos);
 
 		return geo;
 	}
 
-	public abstract boolean kreuzenSich2Wege(Kreuzung anfangA, Kreuzung endeA,
-			Kreuzung anfangB, Kreuzung endeB);
+	public static boolean kreuzenSich2Wege(Position anfangA, Position endeA,
+			Position anfangB, Position endeB)
+	{
+		return getGeometrie(anfangA).kreuzenSich2WegeDo(anfangA, endeA,
+				anfangB, endeB);
+	};
 
-	public abstract float berechneEntfernungZwischenKreuzungen(
-			Kreuzung kreuzungA, Kreuzung kreuzungB);
+	protected abstract boolean kreuzenSich2WegeDo(Position anfangA,
+			Position endeA, Position anfangB, Position endeB);
 
+	public static float berechneEntfernung(Position posA, Position posB)
+	{
+		return getGeometrie(posA).berechneEntfernungDo(posA, posB);
+	};
+
+	protected abstract float berechneEntfernungDo(Position posA, Position posB);
+
+	public static boolean istPunktInDreieck(Position punkt, Position... dreieck)
+	{
+		return getGeometrie(punkt).istPunktInDreieckDo(punkt, dreieck);
+	}
+
+	protected abstract boolean istPunktInDreieckDo(Position punkt,
+			Position[] dreieck);
 }

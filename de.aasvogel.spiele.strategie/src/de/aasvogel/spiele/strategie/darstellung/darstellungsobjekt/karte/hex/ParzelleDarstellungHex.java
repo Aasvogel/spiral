@@ -10,7 +10,7 @@ import de.aasvogel.spiele.strategie.darstellung.darstellungsobjekt.karte.allgeme
 import de.aasvogel.spiele.strategie.darstellung.engine.Loader;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Kreuzung;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Parzelle;
-import de.aasvogel.spiele.strategie.unterbau.hex.KreuzungHex;
+import de.aasvogel.spiele.strategie.unterbau.hex.PositionHex;
 
 public class ParzelleDarstellungHex implements ParzelleDarstellung
 {
@@ -23,7 +23,7 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 	public ParzelleDarstellungHex(Parzelle parzelle)
 	{
 		Kreuzung kreuzung = parzelle.getEcken().iterator().next();
-		if (!(kreuzung instanceof KreuzungHex))
+		if (!(kreuzung.getPosition() instanceof PositionHex))
 		{
 			throw new IllegalArgumentException("Hex-Kreuzung erwartet!");
 		}
@@ -55,10 +55,10 @@ public class ParzelleDarstellungHex implements ParzelleDarstellung
 		int aktPos = 0;
 		for (Kreuzung kreuzung : parzelle.getEcken())
 		{
-			KreuzungHex kHex = (KreuzungHex) kreuzung;
-			vertices[aktPos++] = kHex.getLaengengrad();
-			vertices[aktPos++] = kHex.getBreitengrad();
-			vertices[aktPos++] = kHex.getHoehe();
+			PositionHex pHex = (PositionHex) kreuzung.getPosition();
+			vertices[aktPos++] = pHex.getLaengengrad();
+			vertices[aktPos++] = pHex.getBreitengrad();
+			vertices[aktPos++] = pHex.getHoehe();
 		}
 
 		return vertices;

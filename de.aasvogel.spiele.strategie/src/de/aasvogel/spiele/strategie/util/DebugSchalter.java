@@ -4,5 +4,5 @@ public class DebugSchalter
 {
 	public static final boolean RandomFest = true;
 
-	public static final boolean SMALLSCALEDEBUG = true;
+	public static final boolean SMALLSCALEDEBUG = false;
 }

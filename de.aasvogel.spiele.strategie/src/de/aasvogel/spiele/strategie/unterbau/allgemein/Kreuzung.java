@@ -1,13 +1,38 @@
 package de.aasvogel.spiele.strategie.unterbau.allgemein;
 
-public interface Kreuzung
+public class Kreuzung
 {
-	public abstract boolean istEntfernungZuKreuzungKleiner(Kreuzung kreuzung,
-			float entfernung);
+	private Position position;
 
-	public abstract boolean istInDreieck(Kreuzung... dreieck);
+	public Position getPosition()
+	{
+		return position;
+	}
 
-	public abstract void setHoehe(float hoehe);
+	public Kreuzung(Position position)
+	{
+		this.position = position;
+	}
 
-	public abstract float getHoehe();
+	public boolean istEntfernungKleiner(Position position, float entfernung)
+	{
+		return this.position.istEntfernungZuPositionKleiner(position,
+				entfernung);
+	};
+
+	public void setHoehe(float hoehe)
+	{
+		position.setHoehe(hoehe);
+	}
+
+	public float getHoehe()
+	{
+		return position.getHoehe();
+	};
+
+	@Override
+	public String toString()
+	{
+		return "Kreuzung bei " + position;
+	}
 }

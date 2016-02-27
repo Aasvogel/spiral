@@ -8,14 +8,14 @@ import de.aasvogel.spiele.strategie.darstellung.darstellungsobjekt.RawModel;
 import de.aasvogel.spiele.strategie.darstellung.darstellungsobjekt.TexturedModel;
 import de.aasvogel.spiele.strategie.darstellung.darstellungsobjekt.karte.allgemein.ParzelleDarstellung;
 import de.aasvogel.spiele.strategie.darstellung.engine.Loader;
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Konstanten;
 import de.aasvogel.spiele.strategie.unterbau.hex.PositionHex;
-import de.aasvogel.spiele.strategie.unterbau.hex.SegmentHex;
 
 public class MeerDarstellungHex implements ParzelleDarstellung
 {
 	private final PositionHex mittelpunkt;
 	private final float hoehe;
-	private final float breite = SegmentHex.RADIUS;
+	private final float breite = Konstanten.SEGMENTGROESSE;
 
 	private Loader loader = Loader.getLoader();
 

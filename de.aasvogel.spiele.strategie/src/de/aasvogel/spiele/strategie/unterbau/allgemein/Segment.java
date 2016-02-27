@@ -1,15 +1,10 @@
 package de.aasvogel.spiele.strategie.unterbau.allgemein;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import de.aasvogel.spiele.strategie.util.GecoRandom;
 
-public abstract class Segment
+public class Segment
 {
 	protected ArrayList<Kreuzung> kreuzungen = new ArrayList<Kreuzung>();
 	protected List<Weg> wege = new ArrayList<Weg>();
@@ -19,8 +14,13 @@ public abstract class Segment
 
 	private final KartenVerweise kartenVerweise;
 
-	protected Segment(KartenVerweise verweise)
+	public final SegmentPosition position;
+	public final Position mittelpunkt;
+
+	public Segment(SegmentPosition segPos, KartenVerweise verweise)
 	{
+		this.mittelpunkt = segPos.toPosition();
+		this.position = segPos;
 		this.kartenVerweise = verweise;
 	}
 
@@ -88,7 +88,8 @@ public abstract class Segment
 	private void testAndAddParzelle(Segment[] nachbarn, Kreuzung punkt1,
 			Weg weg12, Kreuzung punkt2, Weg weg23, Kreuzung punkt3, Weg weg31)
 	{
-		if (!befindetSichKreuzungInDreieck(punkt1, punkt2, punkt3, nachbarn))
+		if (!befindetSichKreuzungInDreieck(punkt1.getPosition(),
+				punkt2.getPosition(), punkt3.getPosition(), nachbarn))
 		{
 			Parzelle parzelle = new Parzelle(weg12, weg23, weg31);
 
@@ -112,21 +113,23 @@ public abstract class Segment
 		}
 	}
 
-	private boolean befindetSichKreuzungInDreieck(Kreuzung a, Kreuzung b,
-			Kreuzung c, Segment[] nachbarn)
+	private boolean befindetSichKreuzungInDreieck(Position a, Position b,
+			Position c, Segment[] nachbarn)
 	{
-		for (Kreuzung punkt : kreuzungen)
+		for (Kreuzung kreuzung : kreuzungen)
 		{
+			Position punkt = kreuzung.getPosition();
 			if (punkt != a && punkt != b && punkt != c
-					&& punkt.istInDreieck(a, b, c))
+					&& Geometrie.istPunktInDreieck(punkt, a, b, c))
 			{
 				return true;
 			}
 		}
 		for (Segment nachbar : nachbarn)
 		{
-			for (Kreuzung punkt : nachbar.kreuzungen)
+			for (Kreuzung kreuzung : nachbar.kreuzungen)
 			{
+				Position punkt = kreuzung.getPosition();
 				if (punkt != a && punkt != b && punkt != c
 						&& punkt.istInDreieck(a, b, c))
 				{
@@ -137,24 +140,36 @@ public abstract class Segment
 		return false;
 	}
 
-	protected abstract void fuelleKreuzungen(int anzahlVersuche,
-			Segment[] nachbarn);
+	protected void fuelleKreuzungen(int anzahlVersuche, Segment[] nachbarn)
+	{
+		int gesamtAnzahl = (int) (3 * Konstanten.SEGMENTGROESSE * Konstanten.SEGMENTGROESSE);
+		// System.out.println("Ziel: " + gesamtAnzahl);
 
-	protected boolean istNeueKreuzungZulaessig(Kreuzung kreuzung,
+		for (int i = 0; i < gesamtAnzahl * anzahlVersuche; i++)
+		{
+			Position pos = mittelpunkt
+					.getZufallsPositionImUmkreis(Konstanten.SEGMENTGROESSE);
+
+			if (istNeueKreuzungZulaessig(pos, nachbarn))
+				kreuzungen.add(new Kreuzung(pos));
+		}
+	}
+
+	protected boolean istNeueKreuzungZulaessig(Position position,
 			Segment[] nachbarn)
 	{
-		for (Kreuzung kreuzungBestehend : kreuzungen)
+		for (Kreuzung kreuzung : kreuzungen)
 		{
-			if (kreuzung.istEntfernungZuKreuzungKleiner(kreuzungBestehend,
+			if (kreuzung.istEntfernungKleiner(position,
 					Konstanten.MIN_ENTFERNUNG_ZWISCHEN_PUNKTEN))
 				return false;
 		}
 
 		for (Segment nachbar : nachbarn)
 		{
-			for (Kreuzung kreuzungBestehend : nachbar.kreuzungen)
+			for (Kreuzung kreuzung : nachbar.kreuzungen)
 			{
-				if (kreuzung.istEntfernungZuKreuzungKleiner(kreuzungBestehend,
+				if (kreuzung.istEntfernungKleiner(position,
 						Konstanten.MIN_ENTFERNUNG_ZWISCHEN_PUNKTEN))
 					return false;
 			}
@@ -276,7 +291,8 @@ public abstract class Segment
 		{
 			if (start != ende)
 			{
-				if (start.istEntfernungZuKreuzungKleiner(ende, merker.laenge))
+				if (start.istEntfernungKleiner(ende.getPosition(),
+						merker.laenge))
 				{
 					Weg weg = new Weg(start, ende);
 

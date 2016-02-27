@@ -2,6 +2,8 @@ package de.aasvogel.spiele.strategie.unterbau.hex;
 
 import java.util.Iterator;
 
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Konstanten;
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Position;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.SegmentPosition;
 
 public class SegmentPositionHex extends SegmentPosition
@@ -18,15 +20,6 @@ public class SegmentPositionHex extends SegmentPosition
 		this.east = east - min;
 		this.northWest = northWest - min;
 		this.southWest = southWest - min;
-	}
-
-	public PositionHex toHexKoord(float radius)
-	{
-		float nord = northWest * radius - southWest * radius;
-		float suedWest = southWest * radius - east * radius;
-		float suedOst = east * radius - northWest * radius;
-
-		return new PositionHex(nord, suedWest, suedOst);
 	}
 
 	@Override
@@ -145,5 +138,16 @@ public class SegmentPositionHex extends SegmentPosition
 					next = null;
 			}
 		}
+	}
+
+	@Override
+	public Position toPosition()
+	{
+		float radius = Konstanten.SEGMENTGROESSE;
+		float nord = northWest * radius - southWest * radius;
+		float suedWest = southWest * radius - east * radius;
+		float suedOst = east * radius - northWest * radius;
+
+		return new PositionHex(nord, suedWest, suedOst);
 	}
 }

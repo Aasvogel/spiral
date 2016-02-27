@@ -16,7 +16,8 @@ import de.aasvogel.spiele.strategie.darstellung.shader.FogShader;
 import de.aasvogel.spiele.strategie.darstellung.shader.StaticShader;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.KartenVerweise;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Parzelle;
-import de.aasvogel.spiele.strategie.unterbau.hex.SegmentHex;
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Segment;
+import de.aasvogel.spiele.strategie.unterbau.hex.PositionHex;
 import de.aasvogel.spiele.strategie.unterbau.hex.SegmentPositionHex;
 
 public class Testdarsteller
@@ -31,11 +32,11 @@ public class Testdarsteller
 
 	public static void main(String[] args)
 	{
-		List<SegmentHex> segmente = karteVorbereiten();
+		List<Segment> segmente = karteVorbereiten();
 
 		DisplayManager.createDisplay();
 
-		for (SegmentHex segment : segmente)
+		for (Segment segment : segmente)
 		{
 			for (Parzelle parzelle : segment.getParzellen())
 			{
@@ -48,7 +49,8 @@ public class Testdarsteller
 			}
 			for (float i = -0.6f; i <= 0.05; i = i + 0.05f)
 			{
-				meer.add(new MeerDarstellungHex(i, segment.mittelpunkt).load());
+				meer.add(new MeerDarstellungHex(i,
+						(PositionHex) segment.mittelpunkt).load());
 			}
 		}
 
@@ -70,21 +72,18 @@ public class Testdarsteller
 		}
 	}
 
-	private static List<SegmentHex> karteVorbereiten()
+	private static List<Segment> karteVorbereiten()
 	{
 		KartenVerweise verweise = new KartenVerweise();
-		List<SegmentHex> segmente = new ArrayList<SegmentHex>();
-		SegmentHex seg1 = new SegmentHex(new SegmentPositionHex(0, 0, 0),
-				verweise);
+		List<Segment> segmente = new ArrayList<Segment>();
+		Segment seg1 = new Segment(new SegmentPositionHex(0, 0, 0), verweise);
 		seg1.fillRandomly();
 		segmente.add(seg1);
 
-		SegmentHex seg2 = new SegmentHex(new SegmentPositionHex(1, 0, 0),
-				verweise);
+		Segment seg2 = new Segment(new SegmentPositionHex(1, 0, 0), verweise);
 		seg2.fillRandomly(seg1);
 		segmente.add(seg2);
-		SegmentHex seg3 = new SegmentHex(new SegmentPositionHex(0, 1, 0),
-				verweise);
+		Segment seg3 = new Segment(new SegmentPositionHex(0, 1, 0), verweise);
 		seg3.fillRandomly(seg1, seg2);
 		segmente.add(seg3);
 		return segmente;
