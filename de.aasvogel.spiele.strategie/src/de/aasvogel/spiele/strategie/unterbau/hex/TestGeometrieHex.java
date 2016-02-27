@@ -1,9 +1,12 @@
 package de.aasvogel.spiele.strategie.unterbau.hex;
 
-import de.aasvogel.spiele.strategie.unterbau.allgemein.Geometrie;
-import de.aasvogel.spiele.strategie.util.AasvogelTest;
+import junit.framework.TestCase;
 
-public class TestGeometrieHex extends AasvogelTest
+import org.junit.Test;
+
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Geometrie;
+
+public class TestGeometrieHex extends TestCase
 {
 	public static void main(String[] args)
 	{
@@ -12,6 +15,7 @@ public class TestGeometrieHex extends AasvogelTest
 		tgh.testIstInDreieck();
 	}
 
+	@Test
 	public void testIstInDreieck()
 	{
 		PositionHex stdDreieckN = new PositionHex(1, 0, 0);
@@ -19,33 +23,37 @@ public class TestGeometrieHex extends AasvogelTest
 		PositionHex stdDreieckSO = new PositionHex(0, 0, 1);
 
 		PositionHex testkandidat = new PositionHex(0, 0, 0);
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
-				stdDreieckSO, stdDreieckSW), "Ursprung nicht in stdDreieck1");
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
-				stdDreieckSW, stdDreieckSO), "Ursprung nicht in stdDreieck2");
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
-				stdDreieckN, stdDreieckSW), "Ursprung nicht in stdDreieck3");
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
-				stdDreieckSW, stdDreieckN), "Ursprung nicht in stdDreieck4");
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
-				stdDreieckN, stdDreieckSO), "Ursprung nicht in stdDreieck5");
-		assertTrue(Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
-				stdDreieckSO, stdDreieckN), "Ursprung nicht in stdDreieck6");
+		assertTrue("Ursprung nicht in stdDreieck1",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
+						stdDreieckSO, stdDreieckSW));
+		assertTrue("Ursprung nicht in stdDreieck2",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
+						stdDreieckSW, stdDreieckSO));
+		assertTrue("Ursprung nicht in stdDreieck3",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
+						stdDreieckN, stdDreieckSW));
+		assertTrue("Ursprung nicht in stdDreieck4",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
+						stdDreieckSW, stdDreieckN));
+		assertTrue("Ursprung nicht in stdDreieck5",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
+						stdDreieckN, stdDreieckSO));
+		assertTrue("Ursprung nicht in stdDreieck6",
+				Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
+						stdDreieckSO, stdDreieckN));
 
 		testkandidat = new PositionHex(1, 1, 0);
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
-				stdDreieckSO, stdDreieckSW), "Auﬂenpunkt in stdDreieck1");
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckN,
-				stdDreieckSW, stdDreieckSO), "Auﬂenpunkt in stdDreieck2");
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
-				stdDreieckN, stdDreieckSW), "Auﬂenpunkt in stdDreieck3");
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckSO,
-				stdDreieckSW, stdDreieckN), "Auﬂenpunkt in stdDreieck4");
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
-				stdDreieckN, stdDreieckSO), "Auﬂenpunkt in stdDreieck5");
-		assertTrue(!Geometrie.istPunktInDreieck(testkandidat, stdDreieckSW,
-				stdDreieckSO, stdDreieckN), "Auﬂenpunkt in stdDreieck6");
-
-		System.out.println("IstInDreieck - OK");
+		assertFalse("Auﬂenpunkt in stdDreieck1", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckN, stdDreieckSO, stdDreieckSW));
+		assertFalse("Auﬂenpunkt in stdDreieck2", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckN, stdDreieckSW, stdDreieckSO));
+		assertFalse("Auﬂenpunkt in stdDreieck3", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckSO, stdDreieckN, stdDreieckSW));
+		assertFalse("Auﬂenpunkt in stdDreieck4", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckSO, stdDreieckSW, stdDreieckN));
+		assertFalse("Auﬂenpunkt in stdDreieck5", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckSW, stdDreieckN, stdDreieckSO));
+		assertFalse("Auﬂenpunkt in stdDreieck6", Geometrie.istPunktInDreieck(
+				testkandidat, stdDreieckSW, stdDreieckSO, stdDreieckN));
 	}
 }

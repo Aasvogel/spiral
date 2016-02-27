@@ -1,8 +1,8 @@
 package de.aasvogel.spiele.strategie.unterbau.hex;
 
-import de.aasvogel.spiele.strategie.util.AasvogelTest;
+import junit.framework.TestCase;
 
-public class TestPositionHex extends AasvogelTest
+public class TestPositionHex extends TestCase
 {
 	public static void main(String[] args)
 	{
@@ -36,8 +36,6 @@ public class TestPositionHex extends AasvogelTest
 		testkandidat = new PositionHex(1, 1, 0);
 		assertEquals(0.5f, testkandidat.getBreitengrad(), epsilon);
 		assertEquals(Math.sqrt(0.75), testkandidat.getLaengengrad(), epsilon);
-
-		System.out.println("Laengen und Breitengrad - OK");
 	}
 
 	public void testNormalisierung()
@@ -56,8 +54,6 @@ public class TestPositionHex extends AasvogelTest
 		tkNormal = new PositionHex(29, 0, 2018);
 		assertEquals(tkNormal, testkandidat);
 		assertEquals(tkNormal.hashCode(), testkandidat.hashCode());
-
-		System.out.println("Normalisierung - OK");
 	}
 
 	public void testZufallsPosition()
@@ -67,12 +63,11 @@ public class TestPositionHex extends AasvogelTest
 		{
 			PositionHex zufall = ausgangspunkt.getZufallsPositionImUmkreis(1);
 
-			assertTrue(zufall.nord < 1, "Zu viel Nord: " + zufall.nord);
-			assertTrue(zufall.suedWest < 1, "Zu viel SuedWese: "
-					+ zufall.suedWest);
-			assertTrue(zufall.suedOst < 1, "Zu viel SuedOst: " + zufall.suedOst);
+			assertTrue("Zu viel Nord: " + zufall.nord, zufall.nord < 1);
+			assertTrue("Zu viel SuedWese: " + zufall.suedWest,
+					zufall.suedWest < 1);
+			assertTrue("Zu viel SuedOst: " + zufall.suedOst, zufall.suedOst < 1);
 		}
-		System.out.println("Zufallspunkt - OK");
 	}
 
 }
