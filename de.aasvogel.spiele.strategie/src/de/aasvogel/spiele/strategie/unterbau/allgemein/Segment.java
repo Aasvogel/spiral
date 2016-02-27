@@ -131,7 +131,7 @@ public class Segment
 			{
 				Position punkt = kreuzung.getPosition();
 				if (punkt != a && punkt != b && punkt != c
-						&& punkt.istInDreieck(a, b, c))
+						&& Geometrie.istPunktInDreieck(punkt, a, b, c))
 				{
 					return true;
 				}

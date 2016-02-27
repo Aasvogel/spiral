@@ -4,7 +4,6 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector3f;
 
-import de.aasvogel.spiele.strategie.unterbau.allgemein.Geometrie;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Position;
 import de.aasvogel.spiele.strategie.util.DebugSchalter;
 import de.aasvogel.spiele.strategie.util.GecoRandom;
@@ -133,8 +132,34 @@ public class PositionHex extends Position
 	}
 
 	@Override
-	public boolean istInDreieck(Position... dreieck)
+	public int hashCode()
 	{
-		return Geometrie.istPunktInDreieck(this, dreieck);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Float.floatToIntBits(nord);
+		result = prime * result + Float.floatToIntBits(suedOst);
+		result = prime * result + Float.floatToIntBits(suedWest);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof PositionHex))
+			return false;
+		PositionHex other = (PositionHex) obj;
+		if (Float.floatToIntBits(nord) != Float.floatToIntBits(other.nord))
+			return false;
+		if (Float.floatToIntBits(suedOst) != Float
+				.floatToIntBits(other.suedOst))
+			return false;
+		if (Float.floatToIntBits(suedWest) != Float
+				.floatToIntBits(other.suedWest))
+			return false;
+		return true;
 	}
 }

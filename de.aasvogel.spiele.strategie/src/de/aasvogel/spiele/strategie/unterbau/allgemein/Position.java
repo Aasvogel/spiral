@@ -4,8 +4,6 @@ public abstract class Position
 {
 	protected float hoehe = 0;
 
-	public abstract boolean istInDreieck(Position... dreieck);
-
 	public abstract Position getZufallsPositionImUmkreis(float radius);
 
 	public void setHoehe(float hoehe)
