@@ -15,6 +15,7 @@ import de.aasvogel.spiele.strategie.darstellung.engine.Renderer;
 import de.aasvogel.spiele.strategie.darstellung.shader.FogShader;
 import de.aasvogel.spiele.strategie.darstellung.shader.StaticShader;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.KartenVerweise;
+import de.aasvogel.spiele.strategie.unterbau.allgemein.Konstanten;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Parzelle;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Segment;
 import de.aasvogel.spiele.strategie.unterbau.hex.PositionHex;
@@ -47,11 +48,10 @@ public class Testdarsteller
 			{
 				entitaeten.add(new ParzelleDarstellungHex(parzelle).load());
 			}
-			for (float i = -0.6f; i <= 0.05; i = i + 0.05f)
-			{
-				meer.add(new MeerDarstellungHex(i,
-						(PositionHex) segment.mittelpunkt).load());
-			}
+		}
+		for (float i = Konstanten.HOEHE_MARIANNENGRABEN; i <= 0.05; i = i + 0.05f)
+		{
+			meer.add(new MeerDarstellungHex(i, new PositionHex(0, 0, 0)).load());
 		}
 
 		shader = new StaticShader();
@@ -83,7 +83,7 @@ public class Testdarsteller
 		Segment seg2 = new Segment(new SegmentPositionHex(1, 0, 0), verweise);
 		seg2.fillRandomly(seg1);
 		segmente.add(seg2);
-		Segment seg3 = new Segment(new SegmentPositionHex(0, 1, 0), verweise);
+		Segment seg3 = new Segment(new SegmentPositionHex(1, 1, 0), verweise);
 		seg3.fillRandomly(seg1, seg2);
 		segmente.add(seg3);
 		return segmente;

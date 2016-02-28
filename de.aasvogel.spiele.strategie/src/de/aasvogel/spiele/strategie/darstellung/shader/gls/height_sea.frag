@@ -29,7 +29,7 @@ void main(void)
 	vec4 color_texture;
 	
 	if (height < meer_h) 
-		color_height = meer;
+		color_height = strand; //meer;
 	else if (height < strand_h) 
 		color_height = strand;
 	else if (height < tiefebene_h) 
@@ -45,9 +45,5 @@ void main(void)
 	
 	color_texture = texture(textureSampler,pass_textureCoords);
 	out_Color = color_height * color_texture;
-//	if (pass_textureCoords.x < 0.03 || pass_textureCoords.y > 0.97 || (pass_textureCoords.y - pass_textureCoords.x )< 0.03)
-//		out_Color = vec4(0.1, 0.1, 0.1, 1.0);
-//	else
-//		out_Color = color_height;
 	
 }

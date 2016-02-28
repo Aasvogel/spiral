@@ -17,6 +17,8 @@ public class Segment
 	public final SegmentPosition position;
 	public final Position mittelpunkt;
 
+	// private static Logger logger = Logger.getLogger(Segment.class);
+
 	public Segment(SegmentPosition segPos, KartenVerweise verweise)
 	{
 		this.mittelpunkt = segPos.toPosition();
@@ -29,15 +31,16 @@ public class Segment
 		clear();
 
 		fuelleKreuzungen(Konstanten.VERSUCHE, nachbarn);
-		// System.out.println("Kreuzungen:    " + kreuzungen.size());
+		// logger.info("Kreuzungen:    " + kreuzungen.size());
 		fuelleWege(nachbarn);
-		// System.out.println("Wege:          " + wege.size());
-		// System.out.println("Verbindungen:  " + verbindungsStrassen.size());
-		// entferneSackgassen();
-		// System.out.println("Wege2:         " + wege.size());
+		// logger.info("Wege:          " + wege.size());
+		// logger.info("Verbindungen:  " + verbindungsStrassen.size());
+		// entferneSackgassen(); Eben Nicht! Sobald weitere Nachbarn ins Spiel
+		// kommen
+		// werden die Sackgassen benötigt!
 		ermittleParzellen(nachbarn);
-		// System.out.println("Parzellen:     " + parzellen.size());
-		// System.out.println("Niemandsland:  " + niemandsLand.size());
+		// logger.info("Parzellen:     " + parzellen.size());
+		// logger.info("Niemandsland:  " + niemandsLand.size());
 		ermittleHoehe();
 	}
 

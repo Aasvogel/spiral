@@ -15,9 +15,9 @@ void main(void)
 
 	vec4 pos = transformationMatrix * vec4(position, 1.0);
 
-	float alpha = 0.1;
+	float alpha = 0.2;
 	if (pos.z > -0.0001)
-		alpha = 0.8;	
+		alpha = 0.6;	
 
 	colour = vec4(0.2, 0.3, 0.8, alpha);
 }

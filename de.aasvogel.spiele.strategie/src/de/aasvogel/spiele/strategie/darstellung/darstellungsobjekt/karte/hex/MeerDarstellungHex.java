@@ -15,7 +15,7 @@ public class MeerDarstellungHex implements ParzelleDarstellung
 {
 	private final PositionHex mittelpunkt;
 	private final float hoehe;
-	private final float breite = Konstanten.SEGMENTGROESSE;
+	private final float breite = Konstanten.SEGMENTGROESSE * 20f;
 
 	private Loader loader = Loader.getLoader();
 

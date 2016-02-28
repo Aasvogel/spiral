@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="C:/programmieren/extern/lwjgl-2.9.1/jar/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="C:/programmieren/extern/slick-util.jar"/>
 	<classpathentry kind="lib" path="C:/programmieren/extern/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/programmieren/extern/apache-log4j-2.1-bin/log4j-1.2-api-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/programmieren/extern/apache-log4j-2.1-bin/log4j-core-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
