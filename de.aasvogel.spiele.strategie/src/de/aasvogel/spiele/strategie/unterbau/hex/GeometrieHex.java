@@ -25,7 +25,7 @@ public class GeometrieHex extends Geometrie
 	}
 
 	@Override
-	public boolean kreuzenSich2WegeDo(Position anfangA, Position endeA,
+	protected boolean kreuzenSich2WegeDo(Position anfangA, Position endeA,
 			Position anfangB, Position endeB)
 	{
 		assert (anfangA instanceof PositionHex);
@@ -39,15 +39,16 @@ public class GeometrieHex extends Geometrie
 	private boolean kreuzenSich2HexWege(PositionHex anfangA, PositionHex endeA,
 			PositionHex anfangB, PositionHex endeB)
 	{
-		return Line2D.linesIntersect(anfangA.getBreitengrad(),
-				anfangA.getLaengengrad(), endeA.getBreitengrad(),
-				endeA.getLaengengrad(), anfangB.getBreitengrad(),
-				anfangB.getLaengengrad(), endeB.getBreitengrad(),
-				endeB.getLaengengrad());
+		return Line2D.linesIntersect(
+				//
+				anfangA.getBreitengrad(), anfangA.getLaengengrad(),
+				endeA.getBreitengrad(), endeA.getLaengengrad(),
+				anfangB.getBreitengrad(), anfangB.getLaengengrad(),
+				endeB.getBreitengrad(), endeB.getLaengengrad());
 	}
 
 	@Override
-	public float berechneEntfernungDo(Position kreuzungA, Position kreuzungB)
+	protected float berechneEntfernungDo(Position kreuzungA, Position kreuzungB)
 	{
 		assert (kreuzungA instanceof PositionHex);
 		assert (kreuzungB instanceof PositionHex);
@@ -57,7 +58,7 @@ public class GeometrieHex extends Geometrie
 	}
 
 	@Override
-	public boolean istPunktInDreieckDo(Position punkt, Position[] dreieck)
+	protected boolean istPunktInDreieckDo(Position punkt, Position[] dreieck)
 	{
 		if (dreieck.length != 3)
 			throw new IllegalArgumentException(

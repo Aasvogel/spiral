@@ -2,17 +2,12 @@ package de.aasvogel.spiele.strategie.unterbau.hex;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 public class TestPositionHex extends TestCase
 {
-	public static void main(String[] args)
-	{
-		TestPositionHex tph = new TestPositionHex();
 
-		tph.testLaengenUndBreitenGrad();
-		tph.testNormalisierung();
-		tph.testZufallsPosition();
-	}
-
+	@Test
 	public void testLaengenUndBreitenGrad()
 	{
 		double epsilon = 0.0001;
@@ -38,6 +33,7 @@ public class TestPositionHex extends TestCase
 		assertEquals(Math.sqrt(0.75), testkandidat.getLaengengrad(), epsilon);
 	}
 
+	@Test
 	public void testNormalisierung()
 	{
 		PositionHex testkandidat = new PositionHex(1, 1, 1);
@@ -56,6 +52,7 @@ public class TestPositionHex extends TestCase
 		assertEquals(tkNormal.hashCode(), testkandidat.hashCode());
 	}
 
+	@Test
 	public void testZufallsPosition()
 	{
 		PositionHex ausgangspunkt = new PositionHex(0, 0, 0);

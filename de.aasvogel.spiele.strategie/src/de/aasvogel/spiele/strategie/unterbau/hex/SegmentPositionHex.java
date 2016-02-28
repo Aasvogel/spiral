@@ -3,14 +3,13 @@ package de.aasvogel.spiele.strategie.unterbau.hex;
 import java.util.Iterator;
 
 import de.aasvogel.spiele.strategie.unterbau.allgemein.Konstanten;
-import de.aasvogel.spiele.strategie.unterbau.allgemein.Position;
 import de.aasvogel.spiele.strategie.unterbau.allgemein.SegmentPosition;
 
 public class SegmentPositionHex extends SegmentPosition
 {
-	public final long east;
-	public final long northWest;
-	public final long southWest;
+	final long east;
+	final long northWest;
+	final long southWest;
 
 	public SegmentPositionHex(long east, long northWest, long southWest)
 	{
@@ -141,7 +140,7 @@ public class SegmentPositionHex extends SegmentPosition
 	}
 
 	@Override
-	public Position toPosition()
+	public PositionHex toPosition()
 	{
 		float radius = Konstanten.SEGMENTGROESSE;
 		float nord = northWest * radius - southWest * radius;
@@ -150,4 +149,35 @@ public class SegmentPositionHex extends SegmentPosition
 
 		return new PositionHex(nord, suedWest, suedOst);
 	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (east ^ (east >>> 32));
+		result = prime * result + (int) (northWest ^ (northWest >>> 32));
+		result = prime * result + (int) (southWest ^ (southWest >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof SegmentPositionHex))
+			return false;
+		SegmentPositionHex other = (SegmentPositionHex) obj;
+		if (east != other.east)
+			return false;
+		if (northWest != other.northWest)
+			return false;
+		if (southWest != other.southWest)
+			return false;
+		return true;
+	}
+
 }

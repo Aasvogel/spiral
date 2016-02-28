@@ -4,7 +4,7 @@ public abstract class Geometrie
 {
 	private static Geometrie geo;
 
-	private static Geometrie getGeometrie(Position pos)
+	static Geometrie getGeometrie(Position pos)
 	{
 		if (geo == null)
 			geo = GeometrieFactory.getGeometrie(pos);

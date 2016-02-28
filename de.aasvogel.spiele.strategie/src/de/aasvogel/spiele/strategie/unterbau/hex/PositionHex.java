@@ -13,9 +13,9 @@ public class PositionHex extends Position
 	private static int smallscaleDebugCounter = 0;
 	private final int SMALLSCALEDEBUGNAME = smallscaleDebugCounter++;
 
-	protected final float nord; // Nach oben
-	protected final float suedWest; // Nach unten links
-	protected final float suedOst; // Nach unten rechts
+	final float nord; // Nach oben
+	final float suedWest; // Nach unten links
+	final float suedOst; // Nach unten rechts
 
 	private float hauptEntfernung;
 	private float abweichung;
